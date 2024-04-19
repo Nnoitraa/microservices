@@ -97,31 +97,48 @@ def get_access_token_from_header(request: Request):
     return request.headers["Authorization"]
 
 # POST-запрос для создания доставки
+# откоментить код ниже для 9-10
+# @app.post("/delivery/{order_id}")
+# def create_delivery(order_id: int, token: str = Header(...)):
+#     if(check_user_roles(token)):
+#         db = SessionLocal()
+#         result = create_delivery_and_record(db, order_id)
+#         db.close()
+#         return result
+#     else:
+#         return "Wrong JWT Token"
+
 @app.post("/delivery/{order_id}")
-def create_delivery(order_id: int, token: str = Header(...)):
-    if(check_user_roles(token)):
-        db = SessionLocal()
-        result = create_delivery_and_record(db, order_id)
-        db.close()
-        return result
-    else:
-        return "Wrong JWT Token"
+def create_delivery(order_id: int):
+    db = SessionLocal()
+    result = create_delivery_and_record(db, order_id)
+    db.close()
+    return result
 
 # GET-запрос для чтения данных о доставке из БД
+# откоментить код ниже для 9-10
+# @app.get("/delivery/{order_id}")
+# def read_delivery(order_id: int, token: str = Header(...)):
+#     if(check_user_roles(token)):
+#         db = SessionLocal()
+#         delivery = db.query(Delivery).filter(Delivery.order_id == order_id).first()
+#         db.close()
+#
+#         if not delivery:
+#             raise HTTPException(status_code=404, detail="Delivery not found")
+#
+#         return {"order_id": delivery.order_id, "status": delivery.status}
+#     else:
+#         return "Wrong JWT Token"
 @app.get("/delivery/{order_id}")
-def read_delivery(order_id: int, token: str = Header(...)):
-    if(check_user_roles(token)):
-        db = SessionLocal()
-        delivery = db.query(Delivery).filter(Delivery.order_id == order_id).first()
-        db.close()
+def read_delivery(order_id: int):
 
-        if not delivery:
-            raise HTTPException(status_code=404, detail="Delivery not found")
-
-        return {"order_id": delivery.order_id, "status": delivery.status}
-    else:
-        return "Wrong JWT Token"
-
+    db = SessionLocal()
+    delivery = db.query(Delivery).filter(Delivery.order_id == order_id).first()
+    db.close()
+    if not delivery:
+       raise HTTPException(status_code=404, detail="Delivery not found")
+    return {"order_id": delivery.order_id, "status": delivery.status}
 
 
 if __name__ == "__main__":
