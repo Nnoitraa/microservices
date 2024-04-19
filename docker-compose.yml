@@ -22,3 +22,13 @@ services:
       - "8081:80"
     environment:
       - DATABASE_URL=sqlite:///./payment.db
+
+  database:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: test_db
+    ports:
+      - "5432:5432"
