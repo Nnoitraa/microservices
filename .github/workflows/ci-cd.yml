@@ -33,7 +33,7 @@ jobs:
 
   build-and-push-to-dh:
     runs-on: ubuntu-latest
-
+    needs: [test]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -53,6 +53,7 @@ jobs:
 
   build-and-push-yc:
     runs-on: ubuntu-latest
+    needs: [test]
     steps:
       - uses: actions/checkout@v3
       - name: Build docker image
