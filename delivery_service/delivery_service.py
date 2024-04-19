@@ -71,5 +71,5 @@ def read_delivery(order_id: int):
         raise HTTPException(status_code=404, detail="Delivery not found")
     return {"order_id": delivery.order_id, "status": delivery.status}
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=80)
+# if __name__ == "__main__":
+#     uvicorn.run(app, host="0.0.0.0", port=80)
