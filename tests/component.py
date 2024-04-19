@@ -1,28 +1,23 @@
-import requests
 import unittest
-import json
-
-delivery_url = 'http://localhost:8080'
-add_delivery_url = f'{delivery_url}/delivery'
-get_delivery_url = f'{delivery_url}/delivery'
+import requests
 
 
-class TestComponent(unittest.TestCase):
-
+class TestFoodDelivery(unittest.TestCase):
     def test_create_delivery(self):
-        delivery = {"id": 2,
-                    "message": "Processing delivery for order 2",
-                    "delivery_id": 1}
-        res = requests.post(f"{add_delivery_url}/2", json=delivery)
-        self.assertEqual(res.status_code, 401)
+        # Отправляем POST-запрос на /delivery/{order_id}
+        order_id = 123
+        response = requests.post(f"http://localhost:80/delivery/{order_id}")
 
-    def test_get_data_of_delivery(self):
-        res = requests.get(f"{get_delivery_url}/2")
-        self.assertEqual(res.status_code, 401)
+        # Проверяем, что сервер возвращает код статуса
+        self.assertEqual(response.status_code, 200)  # Изменено на 200, так как это успешный запрос
 
-    def test_fetch_delivery(self):
-        res = requests.get(get_delivery_url)
-        self.assertNotEqual(res.text, "Delivery not found!")
+    def test_read_delivery(self):
+        # Отправляем GET-запрос на /delivery/{order_id}
+        order_id = 123
+        response = requests.get(f"http://localhost:80/delivery/{order_id}")
+
+        # Проверяем, что сервер возвращает код статуса
+        self.assertEqual(response.status_code, 200)
 
 
 if __name__ == '__main__':

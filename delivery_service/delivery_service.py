@@ -48,7 +48,12 @@ def create_delivery_and_record(db, order_id: int):
     db.commit()
     db.refresh(db_delivery)
 
-    return {"message": f"Processing delivery for order {order_id}", "delivery_id": db_delivery.id}
+    return {
+        "message": f"Processing delivery for order {order_id}",
+        "delivery_id": db_delivery.id,
+        "payment_status": payment_result["status"],
+        "status": delivery_status  # Добавлен ключ 'status'
+    }
 
 def get_access_token_from_header(request: Request):
     return request.headers["Authorization"]
