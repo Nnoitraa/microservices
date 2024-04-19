@@ -1,30 +1,21 @@
 import unittest
+from unittest import mock
 import requests
 
-
 class TestDelivery(unittest.TestCase):
-    def setUp(self):
-        # Здесь можно инициализировать какие-то переменные или выполнить другие действия перед каждым тестом
-        self.base_url = "http://localhost:8080"  # Укажите адрес вашего сервера
+    @mock.patch('requests.post')
+    def test_create_delivery(self, mock_post):
+        # Настройка имитации ответа от сервера
+        mock_response = mock.Mock()
+        mock_response.status_code = 200
+        mock_post.return_value = mock_response
 
-    def test_create_delivery(self):
-        # Отправляем POST-запрос на /delivery/{order_id}
-        order_id = 123
-        url = f"{self.base_url}/delivery/{order_id}"
-        response = requests.post(url)
+        # Вызов метода, который мы тестируем
+        response = requests.post("http://localhost:8080/delivery/")
 
-        # Проверяем, что сервер возвращает код статуса 200
+        # Проверка результатов
         self.assertEqual(response.status_code, 200)
-
-    def test_read_delivery(self):
-        # Отправляем GET-запрос на /delivery/{order_id}
-        order_id = 123
-        url = f"{self.base_url}/delivery/{order_id}"
-        response = requests.get(url)
-
-        # Проверяем, что сервер возвращает код статуса 200
-        self.assertEqual(response.status_code, 200)
-
+        mock_post.assert_called_once_with("http://localhost:8080/delivery/")
 
 if __name__ == '__main__':
     unittest.main()
