@@ -2,21 +2,27 @@ import unittest
 import requests
 
 
-class TestDlivery(unittest.TestCase):
+class TestDelivery(unittest.TestCase):
+    def setUp(self):
+        # Здесь можно инициализировать какие-то переменные или выполнить другие действия перед каждым тестом
+        self.base_url = "http://localhost:8080"  # Укажите адрес вашего сервера
+
     def test_create_delivery(self):
         # Отправляем POST-запрос на /delivery/{order_id}
         order_id = 123
-        response = requests.post(f"http://localhost:8080/delivery/{order_id}")
+        url = f"{self.base_url}/delivery/{order_id}"
+        response = requests.post(url)
 
-        # Проверяем, что сервер возвращает код статуса
-        self.assertEqual(response.status_code, 200)  # Изменено на 200, так как это успешный запрос
+        # Проверяем, что сервер возвращает код статуса 200
+        self.assertEqual(response.status_code, 200)
 
     def test_read_delivery(self):
         # Отправляем GET-запрос на /delivery/{order_id}
         order_id = 123
-        response = requests.get(f"http://localhost:8080/delivery/{order_id}")
+        url = f"{self.base_url}/delivery/{order_id}"
+        response = requests.get(url)
 
-        # Проверяем, что сервер возвращает код статуса
+        # Проверяем, что сервер возвращает код статуса 200
         self.assertEqual(response.status_code, 200)
 
 
