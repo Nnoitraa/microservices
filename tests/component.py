@@ -2,7 +2,7 @@ import unittest
 import requests
 
 
-class TestFoodDelivery(unittest.TestCase):
+class TestDlivery(unittest.TestCase):
     def test_create_delivery(self):
         # Отправляем POST-запрос на /delivery/{order_id}
         order_id = 123
