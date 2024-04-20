@@ -130,6 +130,8 @@ def create_delivery(order_id: int):
 #         return {"order_id": delivery.order_id, "status": delivery.status}
 #     else:
 #         return "Wrong JWT Token"
+
+
 @app.get("/delivery/{order_id}")
 def read_delivery(order_id: int):
 
