@@ -14,4 +14,4 @@ EXPOSE 8080
 
 #CMD ["python", "payment_service.py"]
 
-CMD ["/bin/sh", "-c", "alembic upgrade head && uvicorn app.main:app —host 0.0.0.0 —port 8080"]
+CMD ["/bin/sh", "-c", "alembic upgrade head && uvicorn app.main:app —host 0.0.0.0 —port $PORT"]
