@@ -12,6 +12,6 @@ COPY ./payment_service/payment.db /code/payment.db
 
 EXPOSE 8080
 
-#CMD ["python", "payment_service.py"]
+CMD ["python", "payment_service.py"]
 
-CMD ["/bin/sh", "-c", "uvicorn app.main:app —host 0.0.0.0 —port $PORT"]
+
